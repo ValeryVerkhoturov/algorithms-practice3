@@ -29,14 +29,14 @@ class RandomBinaryTree {
             return find(node.rightBrother, key);
     }
 
-    public Node insert(int key) {
-        return insert(root, key);
+    public void insert(int key) {
+        root = insert(root, key);
     }
 
     private Node insert(Node node, int key) {
         if (Objects.isNull(node))
             return Node.builder().key(key).build();
-        if (ThreadLocalRandom.current().nextInt(1, node.size + 1) == 0)
+        if (ThreadLocalRandom.current().nextInt(0, node.size) == 0)
             return insertRoot(node, key);
         if (node.key > key)
             node.son = insert(node.son, key);
@@ -47,13 +47,25 @@ class RandomBinaryTree {
     }
 
     private Node rotateRight(Node node){
-        Node sonNode = node.son;
-        if (Objects.isNull(sonNode))
+        Node son = node.son;
+        if (Objects.isNull(son))
             return node;
-        node.rightBrother = sonNode.son;
-        sonNode.son = node;
-        sonNode.size = node.size;
-        return sonNode;
+        node.rightBrother = son.son;
+        son.son = node;
+        son.size = node.size;
+        node.fixSize();
+        return son;
+    }
+
+    private Node rotateLeft(Node node){
+        Node brother = node.rightBrother;
+        if (Objects.isNull(brother))
+            return node;
+        node.rightBrother = brother.rightBrother;
+        brother.son = node;
+        brother.size = node.size;
+        node.fixSize();
+        return brother;
     }
 
     public Node insertRoot(int key){
@@ -63,12 +75,14 @@ class RandomBinaryTree {
     private Node insertRoot(Node node, int key){
         if (Objects.isNull(node))
             return Node.builder().key(key).build();
-        if (node.key > key) {
+        if (key < node.key) {
             node.son = insertRoot(node.son, key);
             return rotateRight(node);
         }
-        node.rightBrother = insertRoot(node.rightBrother, key);
-        return  rotateRight(node);
+        else {
+            node.rightBrother = insertRoot(node.rightBrother, key);
+            return rotateLeft(node);
+        }
     }
 
     public void remove(int key){
@@ -85,5 +99,29 @@ class RandomBinaryTree {
         else
             node.rightBrother = remove(node.rightBrother, key);
         return node;
+    }
+
+    public void preOrderTraversal(){
+        preOrderTraversal(root);
+    }
+
+    private void preOrderTraversal(Node node){
+        if (Objects.isNull(node))
+            return;
+        System.out.print(node.key + " ");
+        preOrderTraversal(node.son);
+        preOrderTraversal(node.rightBrother);
+    }
+
+    public void inOrderTraversal(){
+        inOrderTraversal(root);
+    }
+
+    private void inOrderTraversal(Node node){
+        if (Objects.isNull(node))
+            return;
+        inOrderTraversal(node.son);
+        System.out.print(node.key + " ");
+        inOrderTraversal(node.rightBrother);
     }
 }
