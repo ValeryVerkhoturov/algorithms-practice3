@@ -6,3 +6,28 @@
 Вывод деревьев на экран:
     A - прямой preorderTraversal
     B - симметричный inorderTraversal
+
+
+
+RandomBinaryTree(
+    root=Node(key=29, size=11,
+        son=Node(key=26, size=6,
+            son=Node(key=18, size=4,
+                son=Node(key=14, size=1,
+                    son=null,
+                    rightBrother=null),
+                rightBrother=Node(key=22, size=2,
+                    son=Node(key=21, size=1,
+                        son=null,
+                        rightBrother=null),
+                    rightBrother=null)),
+            rightBrother=Node(key=28, size=1,
+                son=null,
+                rightBrother=null)),
+        rightBrother=Node(key=46, size=4,
+            son=Node(key=38, size=1,
+                son=null,
+                rightBrother=null),
+            rightBrother=Node(key=47, size=1,
+                son=null,
+                rightBrother=null))))

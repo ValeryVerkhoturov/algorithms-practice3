@@ -22,7 +22,6 @@ class RandomBinaryTree {
             return null;
         if (key == node.key)
             return root;
-
         if (key < node.key)
             return find(node.son, key);
         else
@@ -46,7 +45,7 @@ class RandomBinaryTree {
         return node;
     }
 
-    private Node rotateRight(Node node){
+    /*private Node rotateRight(Node node){
         Node son = node.son;
         if (Objects.isNull(son))
             return node;
@@ -55,9 +54,17 @@ class RandomBinaryTree {
         son.size = node.size;
         node.fixSize();
         return son;
+    }*/
+    private Node rotateRight(Node node){
+        Node son = node.son;
+        node.son = son.rightBrother;
+        son.rightBrother = node;
+        node.fixSize();
+        son.fixSize();
+        return son;
     }
 
-    private Node rotateLeft(Node node){
+    /*private Node rotateLeft(Node node){
         Node brother = node.rightBrother;
         if (Objects.isNull(brother))
             return node;
@@ -65,6 +72,14 @@ class RandomBinaryTree {
         brother.son = node;
         brother.size = node.size;
         node.fixSize();
+        return brother;
+    }*/
+    private Node rotateLeft(Node node){
+        Node brother = node.rightBrother;
+        node.rightBrother = brother.son;
+        brother.son = node;
+        node.fixSize();
+        brother.fixSize();
         return brother;
     }
 
