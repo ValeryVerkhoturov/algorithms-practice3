@@ -1,6 +1,5 @@
 package com.company;
 
-import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
 
@@ -18,10 +17,5 @@ public class Main {
         tree.remove(2);
         tree.inOrderTraversal();
 
-//        // симметричный
-//        tree.inOrderTraversal();
-//        System.out.println();
-//        // прямой
-//        tree.preOrderTraversal();
     }
 }

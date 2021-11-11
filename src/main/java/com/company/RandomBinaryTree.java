@@ -20,11 +20,7 @@ class RandomBinaryTree {
     }
 
     public void insert(int key) {
-        if (Objects.isNull(root)) {
-            root = Node.builder().key(key).build();
-            return;
-        }
-        root = root.insert(key);
+        Optional.ofNullable(root).ifPresentOrElse(r -> root = r.insert(key), () -> root = Node.builder().key(key).build());
     }
 
     public void remove(int key){
