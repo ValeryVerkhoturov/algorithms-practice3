@@ -12,12 +12,12 @@ public class TreeUtils {
     public Node join(Node first, Node second){
         if (Stream.of(first, second).anyMatch(Objects::isNull))
             return Stream.of(first, second).filter(Objects::nonNull).findAny().orElse(null);
-        if(ThreadLocalRandom.current().nextInt(first.size + second.size) < first.size){
-            first.rightBrother = join(first.rightBrother, second);
+        if(ThreadLocalRandom.current().nextInt(first.getSize() + second.getSize()) < first.getSize()){
+            first.setRightBrother(join(first.getRightBrother(), second));
             first.fixSize();
             return first;
         }
-        second.son = join(first, second.son);
+        second.setSon(join(first, second.getSon()));
         second.fixSize();
         return second;
     }

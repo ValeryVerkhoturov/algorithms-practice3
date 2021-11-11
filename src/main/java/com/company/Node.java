@@ -2,7 +2,7 @@ package com.company;
 
 import lombok.AccessLevel;
 import lombok.Builder;
-import lombok.ToString;
+import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 import java.util.Arrays;
@@ -11,9 +11,9 @@ import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Stream;
 
-@ToString
-@FieldDefaults(level = AccessLevel.PUBLIC)
+@Data
 @Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Node {
 
     int key;
