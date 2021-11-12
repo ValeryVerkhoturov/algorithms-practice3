@@ -1,19 +1,14 @@
 package com.company;
 
-import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
-import lombok.experimental.FieldDefaults;
 
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Stream;
 
 @Data
 @Builder
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Node {
 
     int key;
@@ -83,9 +78,10 @@ public class Node {
         if (this.key == key)
             return TreeUtils.join(son, rightBrother);
         if (key < this.key)
-            Optional.ofNullable(son).ifPresent(n -> son = n.remove(key));
+            Optional.ofNullable(son).ifPresent(n -> son = son.remove(key));
         else
-            Optional.ofNullable(rightBrother).ifPresent(n -> rightBrother = n.remove(key));
+            Optional.ofNullable(rightBrother).ifPresent(n -> rightBrother = rightBrother.remove(key));
+        fixSize();
         return this;
     }
 
@@ -98,5 +94,15 @@ public class Node {
         Optional.ofNullable(son).ifPresent(Node::inOrderTraversal);
         System.out.print(key + " ");
         Optional.ofNullable(rightBrother).ifPresent(Node::inOrderTraversal);
+    }
+
+    public List<Integer> getAllKeys(){
+        return getAllKeys(new ArrayList<>());
+    }
+
+    private List<Integer> getAllKeys(List<Integer> list){
+        list.add(key);
+        Stream.of(son, rightBrother).filter(Objects::nonNull).forEach(n -> list.addAll(n.getAllKeys(list)));
+        return list;
     }
 }

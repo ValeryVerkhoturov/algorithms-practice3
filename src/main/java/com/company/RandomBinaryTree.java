@@ -3,8 +3,7 @@ package com.company;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Data
 @Builder
@@ -12,6 +11,10 @@ class RandomBinaryTree {
 
     @Builder.Default
     Node root = null;
+
+    public int size(){
+        return Optional.ofNullable(root).map(Node::getSize).orElse(0);
+    }
 
     public Node find(int key) {
         if (Objects.isNull(root))
@@ -31,15 +34,24 @@ class RandomBinaryTree {
     public void preOrderTraversal(){
         if (Objects.isNull(root))
             return;
-        System.out.println();
         root.preOrderTraversal();
+        System.out.println();
     }
 
     /** Симметричный обход */
     public void inOrderTraversal(){
         if (Objects.isNull(root))
             return;
-        System.out.println();
         root.inOrderTraversal();
+        System.out.println();
+    }
+
+    public List<Integer> getAllKeys(){
+        return root.getAllKeys();
+    }
+
+    public void exclude(RandomBinaryTree subtraction){
+        Set<Integer> subtractionKeys = new HashSet<>(subtraction.getAllKeys());
+        getAllKeys().stream().filter(subtractionKeys::contains).forEach(this::remove);
     }
 }
