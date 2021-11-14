@@ -10,20 +10,20 @@ public class Main {
         String ANSI_RESET = "\u001B[0m";
 
         RandomBinaryTree treeA = RandomBinaryTree.builder().build();
-        IntStream.range(0, 20).map(i -> ThreadLocalRandom.current().nextInt(20)).forEach(treeA::insert);
+        IntStream.range(0, 10).map(i -> ThreadLocalRandom.current().nextInt(5)).forEach(treeA::insert);
         System.out.println(ANSI_RED + "Дерево A" + ANSI_RESET);
         testMethods(treeA);
         System.out.println();
 
         RandomBinaryTree treeB = RandomBinaryTree.builder().build();
-        IntStream.range(0, 20).map(i -> ThreadLocalRandom.current().nextInt(10)).forEach(treeB::insert);
+        IntStream.range(0, 10).map(i -> ThreadLocalRandom.current().nextInt(20)).forEach(treeB::insert);
         System.out.println(ANSI_RED + "Дерево B" + ANSI_RESET);
         testMethods(treeB);
         System.out.println();
 
         System.out.println(ANSI_RED + "Из дерева A исключить B" + ANSI_RESET);
-        treeA.exclude(treeB);
-        testMethods(treeA);
+        RandomBinaryTree treeC = TreeUtils.exclude(treeA, treeB);
+        testMethods(treeC);
         System.out.println();
     }
 

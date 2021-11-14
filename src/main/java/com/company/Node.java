@@ -97,12 +97,9 @@ public class Node {
     }
 
     public List<Integer> getAllKeys(){
-        return getAllKeys(new ArrayList<>());
-    }
-
-    private List<Integer> getAllKeys(List<Integer> list){
+        List<Integer> list = new ArrayList<>();
         list.add(key);
-        Stream.of(son, rightBrother).filter(Objects::nonNull).forEach(n -> list.addAll(n.getAllKeys(list)));
+        Stream.of(son, rightBrother).filter(Objects::nonNull).forEach(n -> list.addAll(n.getAllKeys()));
         return list;
     }
 }

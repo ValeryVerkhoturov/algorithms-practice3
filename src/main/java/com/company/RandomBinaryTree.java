@@ -49,9 +49,4 @@ class RandomBinaryTree {
     public List<Integer> getAllKeys(){
         return root.getAllKeys();
     }
-
-    public void exclude(RandomBinaryTree subtraction){
-        Set<Integer> subtractionKeys = new HashSet<>(subtraction.getAllKeys());
-        getAllKeys().stream().filter(subtractionKeys::contains).forEach(this::remove);
-    }
 }
